@@ -7,14 +7,17 @@ app.get("/auth", async (req, res) => {
   // Fetch URL from the internal system http://localhost:3001/admin
   // curl http://www.safe.corp/auth?url=http://localhost:3001/admin
   const url = req.query.url;
-
-  const isSafeHost = new URL(req.query.url)?.host === "safe.corp";
+ 
+  // patch
+  /*
+  const isSafeHost = new URL(url)?.host === "safe.corp";
 
   if (!isSafeHost) {
     res.status(400).send("Invalid URL");
 
     return;
   }
+  */
 
   try {
     const response = await fetch(url);
@@ -27,17 +30,6 @@ app.get("/auth", async (req, res) => {
     res.status(500).send("Error occurred while fetching data.");
   }
 });
-
-// patch
-/*
-  const isSafeHost = new URL(req.query.url)?.host === "safe.corp";
-
-  if (!isSafeHost) {
-    res.status(400).send("Invalid URL");
-
-    return;
-  }
-*/
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
